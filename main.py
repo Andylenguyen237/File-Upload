@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 # create secret key in order for the form to show up in the template
 app.config['SECRET_KEY'] = 'mykey'
-app.config["UPLOAD_EXTENSIONS"] = ['.png']
+app.config["UPLOAD_EXTENSIONS"] = []
 app.config['UPLOAD_FOLDER'] = 'static/files'
 
 
@@ -34,32 +34,10 @@ def index():
 def allowed_extensions(filename):
     file_ext = os.path.splitext(filename)[1]
     print(file_ext)
+    # any restrictions put in UPLOAD_EXTENSIONS
     if file_ext not in app.config["UPLOAD_EXTENSIONS"]:
         abort(400)
     return True
-
-    # -- 
-    #if form.validate_on_submit():
-         # grab the file
-    #    file = form.file.data
-        # save file 
-        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
-        #myfile.save(os.path.join(os.path.abspath(os.path.dirname(__file__)),app.config['UPLOAD_FOLDER'],secure_filename(myfile.filename)))
-        # display message
-    #    return "File has been uploaded"
-    #return render_template('index.html', form=form)
-
-
-#def upload_files():
-#    upload_file = request.files['file']
-#    filename = secure_filename(upload_file.filename)
-#    if filename != '':
-#        # check coorect extension 
-#        file_ext = os.path.splitext(filename)[1]
-#        if file_ext not in app.config['UPLOAD_EXTENSIONS']: abort(400)
-#        # save 
-#        upload_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
-#    return redirect(url_for('index'))
     
 
 if __name__ == '__main__':
